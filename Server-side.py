@@ -4,8 +4,9 @@ from flask import Flask, request
 app = Flask(__name__)
 
 @app.route('/')
-def hello():
-	return 'Suck me daddy!'
+@app.route('/home')
+def index():
+	return 'Home page'
 
 @app.route('/The thing', methods=['POST'])
 def The_thing():
