@@ -1,6 +1,10 @@
 # Хотел начать сегодня, но с ног валюсь - _ - 01.10.20
 # С утреца пару строк осилю :3
 from flask import Flask, request, jsonify
+from Insert_in_table import Insertion
+import time
+from Select_from_DB import Selection, Selection_all
+
 
 app = Flask(__name__)
 
@@ -12,23 +16,23 @@ def index():
 @app.route('/The_thing', methods=['GET','POST'])
 def The_thing():
 	if request.method == 'POST':
-		Data_from_POST = request.get_json(force=True)
+		Data_from_POST = request.get_json()
 
-		filename = "newfile.txt"
-		myfile = open(filename, 'w')
-		myfile.write(str(Data_from_POST))
-		myfile.close()
+		date_created = time.time()
+		
+		Next_Id = int(int(Selection()) + 1)
+		
+		print(Selection())
+
+		Insertion(Next_Id, date_created, Data_from_POST, 0)
 
 		return 'Done'
 
 	elif request.method == 'GET':
 
-		filename = "newfile.txt"
-		myfile = open(filename, 'r')
-		Data_from_POST = myfile.read()
-		myfile.close()
+		Selection_all()
 
-		return Data_from_POST
+		return 'Done'
 
 if(__name__) == '__main__':
 		app.run(debug = True)

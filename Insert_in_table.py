@@ -1,13 +1,15 @@
 # БД зачит да?
 import sqlite3
+import json
 
-connection = sqlite3.connect('toDO.db')
-cursor = connection.cursor()
+def Insertion(id, date_created, description, is_done):
 
-new_quasks = [(1, '2020-10-05', 'Помыть посуду', 1),
-              (2, '2020-10-05', 'Слепить вареники', 1),
-              (3, '2020-10-05', 'Написать номальный скрипт для занесения данных в таблицу', 0),
-             ]
+	connection = sqlite3.connect('toDO.db')
+	cursor = connection.cursor()
 
-cursor.executemany('INSERT INTO quasks VALUES (?,?,?,?)', new_quasks)
-connection.close()
+	new_quask = [tuple('{0},{1},{2},{3}'.format(id, date_created, description, is_done).split(','))]
+	print(new_quask)
+
+	cursor.executemany('INSERT INTO quasks VALUES (?,?,?,?)', new_quask)
+	connection.commit()
+	connection.close()

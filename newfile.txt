@@ -1,1 +1,1 @@
-{'username': 'xyz', 'password': 'xyz'}
+b'{"username":"abc","password":"abc"}'
