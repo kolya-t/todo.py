@@ -1,40 +1,36 @@
-# Хотел начать сегодня, но с ног валюсь - _ - 01.10.20
-# С утреца пару строк осилю :3
 from flask import Flask, request, jsonify
-from Insert_in_table import Insertion
+from Insert_in_table import insertion
 import time
-from Select_from_DB import Selection, Selection_all
-
+from Select_from_DB import selection, selection_all
 
 app = Flask(__name__)
 
 @app.route('/')
 @app.route('/home')
 def index():
-	return 'Buck me daddy'
+	return 'Buck me daddy!'
 
-@app.route('/The_thing', methods=['GET','POST'])
-def The_thing():
+@app.route('/The_thing', methods=['GET', 'POST'])
+def the_thing():
 	if request.method == 'POST':
+
 		Data_from_POST = request.get_json()
+		date_created = int(time.time() * 1000)
 
-		date_created = time.time()
-		
-		Next_Id = int(int(Selection()) + 1)
-		
-		print(Selection())
-
-		Insertion(Next_Id, date_created, Data_from_POST, 0)
-
-		return 'Done'
+		insertion(date_created, Data_from_POST, 0)
+		return 'Done\n'
 
 	elif request.method == 'GET':
 
-		Selection_all()
+		The_things_list = selection_all()
+		quask_line = ''
 
-		return 'Done'
+		for quask in range(len(The_things_list)):
+
+			quask_line = quask_line + str(The_things_list[quask]) + '\n'
+						
+		return quask_line	
 
 if(__name__) == '__main__':
 		app.run(debug = True)
-# Пока сиддел разбирался: 
-# может написать скрипт для процедурно генерируемой музыки?
+# curl -X POST 'http://localhost:5000/The_thing' -H 'Content-Type: application/json' -d '{"someKey": "some value"}'

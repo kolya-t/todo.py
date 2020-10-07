@@ -1,11 +1,14 @@
 # БД зачит да?
 import sqlite3
 
-connection = sqlite3.connect('toDO.db')
-cursor = connection.cursor()
+def creation_of_DB():
 
-cursor.execute('''CREATE TABLE quasks
-             (id integer, date_created real, description text, is_done integer)''')
+	connection = sqlite3.connect('toDO.db')
+	cursor = connection.cursor()
 
-connection.commit()
-connection.close()
+	cursor.execute('''CREATE TABLE quasks
+	             ('id' INTEGER PRIMARY KEY, 'date_created' integer, 'description' text, 'is_done' integer)''')
+
+	connection.commit()
+	connection.close()
+	return
