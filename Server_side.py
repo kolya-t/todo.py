@@ -1,7 +1,8 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
 from Insert_in_table import insertion
+from Request_handling import request_handling_POST
+from Select_from_DB import selection, selection_all, last_id
 import time
-from Select_from_DB import selection, selection_all
 
 app = Flask(__name__)
 
@@ -10,27 +11,25 @@ app = Flask(__name__)
 def index():
 	return 'Buck me daddy!'
 
-@app.route('/The_thing', methods=['GET', 'POST'])
-def the_thing():
+@app.route('/tasks', methods=['GET', 'POST'])
+def tasks():
 	if request.method == 'POST':
 
-		Data_from_POST = request.get_json()
-		date_created = int(time.time() * 1000)
-
-		insertion(date_created, Data_from_POST, 0)
-		return 'Done\n'
+		response = make_response(request_handling_POST())
+		response.headers['location'] = 'http://localhost:5000/tasks/' + str(last_id())
+		return response
 
 	elif request.method == 'GET':
 
-		The_things_list = selection_all()
+		tasks_list = selection_all()
 		quask_line = ''
 
-		for quask in range(len(The_things_list)):
+		for quask in range(len(tasks_list)):
 
-			quask_line = quask_line + str(The_things_list[quask]) + '\n'
+			quask_line = quask_line + str(tasks_list[quask]) + '\n'
 						
 		return quask_line	
 
 if(__name__) == '__main__':
 		app.run(debug = True)
-# curl -X POST 'http://localhost:5000/The_thing' -H 'Content-Type: application/json' -d '{"someKey": "some value"}'
+# curl -X POST 'http://localhost:5000/tasks' -H 'Content-Type: application/json' -d '{"someKey": "some value"}'
