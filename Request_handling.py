@@ -1,22 +1,36 @@
 from json import dumps
 from collections import OrderedDict
-from flask import request
-from Insert_in_table import insertion
+from flask import request, make_response
+from Insert_in_table import inserting_new_quask
 import time
-from Select_from_DB import selection, column_names
+from Select_from_DB import selecting_last_quask, selection_all, last_id, getting_column_names
 
-def request_handling_POST():
-	
-	Data_from_POST = request.get_json()
 
-	Data_from_POST = Data_from_POST.values()
-
+def handling_request_post():
+	data_from_post = request.get_json()
+	data_from_post = data_from_post['description']
 	date_created = int(time.time() * 1000)
+	inserting_new_quask(date_created, data_from_post, 0)
 
-	insertion(date_created, Data_from_POST, 0)
-
-	return dumps(OrderedDict(zip(column_names(), selection()))), 201
+	return dumps(OrderedDict(zip(getting_column_names(), selecting_last_quask()))), 201
 
 
-def request_handling_GET():
+def handling_request_get():
 	pass
+
+
+def getting_post_request():
+	response = make_response(handling_request_post())
+	response.headers['location'] = 'http://localhost:5000/tasks/' + str(last_id())
+
+	return response
+
+
+def getting_get_request():
+	tasks_list = selection_all()
+	quask_line = ''
+
+	for quask in range(len(tasks_list)):
+		quask_line = quask_line + str(tasks_list[quask]) + '\n'
+
+	return quask_line
