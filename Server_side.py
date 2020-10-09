@@ -1,20 +1,24 @@
-from flask import Flask, request
-from Request_handling import getting_post_request, getting_get_request
+from flask import Flask  # , request
+from Request_handling import create_post_response, create_get_response
+from Create_DB import  create_db
 
 app = Flask(__name__)
 
+create_db()
 
 @app.route('/')
 def index():
 	return 'Wrong way Bud!', 404
 
 
-@app.route('/tasks', methods=['GET', 'POST'])
+@app.route('/tasks', methods=['POST'])
+def responding_to_post():
+	return create_post_response()
+
+
+@app.route('/tasks', methods=['GET'])
 def getting_a_request():
-	if request.method == 'POST':
-		return getting_post_request()
-	elif request.method == 'GET':
-		return getting_get_request()
+	return create_get_response()
 
 
 if __name__ == '__main__':

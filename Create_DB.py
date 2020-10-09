@@ -2,11 +2,12 @@
 import sqlite3
 
 
-def creation_of_db():
+def create_db():
+
 	connection = sqlite3.connect('toDO.db')
 	cursor = connection.cursor()
 
-	cursor.execute('''CREATE TABLE quasks 
+	cursor.execute('''CREATE TABLE if not exists quasks 
 					('id' INTEGER PRIMARY KEY, 'date_created' integer, 'description' text, 'is_done' integer)''')
 
 	connection.commit()

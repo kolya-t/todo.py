@@ -2,7 +2,7 @@
 import sqlite3
 
 
-def inserting_new_quask(date_created, description, is_done):
+def insert_new_quask(date_created, description, is_done):
 	connection = sqlite3.connect('toDO.db')
 	cursor = connection.cursor()
 

@@ -14,7 +14,7 @@ def last_id():
 	return id_field
 
 
-def selecting_last_quask():
+def select_last_quask():
 	connection = sqlite3.connect('toDO.db')
 	cursor = connection.cursor()
 	
@@ -26,7 +26,7 @@ def selecting_last_quask():
 	return last_quask
 
 
-def getting_column_names():
+def get_column_names():
 	connection = sqlite3.connect('toDO.db')
 	cursor = connection.cursor()	
 	
@@ -36,7 +36,7 @@ def getting_column_names():
 	return names
 
 
-def selection_all():
+def select_all():
 	connection = sqlite3.connect('toDO.db')
 	cursor = connection.cursor()
 	
