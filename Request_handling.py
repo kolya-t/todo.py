@@ -31,8 +31,6 @@ def create_get_response():
 	quask_line = []
 
 	for quask in range(len(tasks_list)):
-		quask_line.append(dumps(OrderedDict(zip(get_column_names(), tasks_list[quask]))))
-		# dumps(tasks_list[quask]))
-	# print(quask_line)
+		quask_line.append(OrderedDict(zip(get_column_names(), tasks_list[quask])))
 
 	return dumps(quask_line, indent=1)
