@@ -3,7 +3,7 @@ from collections import OrderedDict
 from flask import request, make_response
 from Insert_in_table import insert_new_quask
 import time
-from Select_from_DB import select_last_quask, select_all, last_id, get_column_names
+from Select_from_DB import select_last_quask, select_all_quasks, select_last_id, get_column_names
 
 
 def handle_request_post():
@@ -21,16 +21,18 @@ def handle_request_get():
 
 def create_post_response():
 	response = make_response(handle_request_post())
-	response.headers['location'] = 'http://localhost:5000/tasks/' + str(last_id())
+	response.headers['location'] = 'http://localhost:5000/tasks/' + str(select_last_id())
 
 	return response
 
 
 def create_get_response():
-	tasks_list = select_all()
-	quask_line = ''
+	tasks_list = select_all_quasks()
+	quask_line = []
 
 	for quask in range(len(tasks_list)):
-		quask_line = quask_line + str(tasks_list[quask]) + '\n'
+		quask_line.append(dumps(OrderedDict(zip(get_column_names(), tasks_list[quask]))))
+		# dumps(tasks_list[quask]))
+	# print(quask_line)
 
-	return quask_line
+	return dumps(quask_line, indent=1)

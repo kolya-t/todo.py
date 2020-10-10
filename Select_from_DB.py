@@ -2,7 +2,7 @@
 import sqlite3
 
 
-def last_id():
+def select_last_id():
 	connection = sqlite3.connect('toDO.db')
 	cursor = connection.cursor()
 
@@ -36,12 +36,11 @@ def get_column_names():
 	return names
 
 
-def select_all():
+def select_all_quasks():
 	connection = sqlite3.connect('toDO.db')
 	cursor = connection.cursor()
-	
-	cursor.execute('SELECT * FROM quasks ORDER BY id ASC')
-	quasks = cursor.fetchall()
+
+	quasks = cursor.execute('SELECT * FROM quasks ORDER BY id ASC').fetchall()
 	
 	connection.close()
 

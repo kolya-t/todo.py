@@ -17,7 +17,7 @@ def responding_to_post():
 
 
 @app.route('/tasks', methods=['GET'])
-def getting_a_request():
+def respond_to_get():
 	return create_get_response()
 
 
