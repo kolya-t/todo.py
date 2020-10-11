@@ -16,21 +16,25 @@ def handle_request_post():
 
 
 def handle_request_get():
-	pass
-
-
-def create_post_response():
-	response = make_response(handle_request_post())
-	response.headers['location'] = 'http://localhost:5000/tasks/' + str(select_last_id())
-
-	return response
-
-
-def create_get_response():
 	tasks_list = select_all_quasks()
 	quask_line = []
 
 	for quask in range(len(tasks_list)):
 		quask_line.append(OrderedDict(zip(get_column_names(), tasks_list[quask])))
 
-	return dumps(quask_line, indent=1)
+	return dumps(quask_line, indent=1), 201
+
+
+def create_post_response():
+	response = make_response(handle_request_post())
+	response.headers['location'] = 'http://localhost:5000/tasks/' + str(select_last_id())
+	response.headers['Content-Type'] = 'application/json'
+
+	return response
+
+
+def create_get_response():
+	response = make_response(handle_request_get())
+	response.headers['Content-Type'] = 'application/json'
+
+	return response
