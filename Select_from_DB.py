@@ -45,3 +45,17 @@ def select_all_quasks():
 	connection.close()
 
 	return quasks
+
+
+def select_quask_by_id(quask_num):
+	connection = sqlite3.connect('toDO.db')
+	cursor = connection.cursor()
+
+	quask_num = ([quask_num])
+
+	cursor.execute('SELECT * FROM quasks WHERE id = (?)', quask_num)
+	quask_by_id = cursor.fetchone()
+
+	connection.close()
+
+	return quask_by_id
