@@ -1,9 +1,10 @@
+# test pycharm commit
 from json import dumps
 from collections import OrderedDict
 from flask import request, make_response
 from insert_in_table import insert_new_quask
 import time
-from select_from_DB import *
+from select_from_db import *
 
 
 def handle_request_post():
