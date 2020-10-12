@@ -1,10 +1,11 @@
-from flask import Flask  # , request
-from Request_handling import create_post_response, create_get_response
-from Create_DB import  create_db
+from flask import Flask
+from request_handling import create_post_response, create_get_response, create_get_id_response
+from create_db import create_db
 
 app = Flask(__name__)
 
 create_db()
+
 
 @app.route('/')
 def index():
@@ -17,8 +18,14 @@ def responding_to_post():
 
 
 @app.route('/tasks', methods=['GET'])
-def getting_a_request():
+def respond_to_get():
 	return create_get_response()
+
+
+@app.route('/tasks/<int:quask_num>', methods=['GET'])
+def respond_to_get_id(quask_num):
+	quask_num = quask_num
+	return create_get_id_response(quask_num)
 
 
 if __name__ == '__main__':
