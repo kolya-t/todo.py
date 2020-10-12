@@ -13,7 +13,11 @@ def handle_request_post():
 	date_created = int(time.time() * 1000)
 	insert_new_quask(date_created, data_from_post, 0)
 
-	return dumps(OrderedDict(zip(get_column_names(), select_last_quask()))), 201
+	return dumps(OrderedDict(zip(get_column_names(), select_last_quask()))), 201, \
+		{
+			'Content-Type': 'application/json',
+			'location': 'http://localhost:5000/tasks/' + str(select_last_id())
+		}
 
 
 def handle_request_get():
@@ -23,7 +27,7 @@ def handle_request_get():
 	for quask in range(len(tasks_list)):
 		quask_line.append(OrderedDict(zip(get_column_names(), tasks_list[quask])))
 
-	return dumps(quask_line, indent=1), 201  # maybe something else? not 201?
+	return dumps(quask_line, indent=1), 200, {'Content-Type': 'application/json'}
 
 
 def handle_request_get_id(quask_num):
@@ -32,26 +36,22 @@ def handle_request_get_id(quask_num):
 	else:
 		line_from_table = OrderedDict(zip(get_column_names(), select_quask_by_id(quask_num)))
 
-		return dumps(line_from_table, indent=1), 201  # maybe something else? not 201?
+		return dumps(line_from_table, indent=1), 200, {'Content-Type': 'application/json'}
 
 
 def create_post_response():
 	response = make_response(handle_request_post())
-	response.headers['location'] = 'http://localhost:5000/tasks/' + str(select_last_id())
-	response.headers['Content-Type'] = 'application/json'
 
 	return response
 
 
 def create_get_response():
 	response = make_response(handle_request_get())
-	response.headers['Content-Type'] = 'application/json'
 
 	return response
 
 
 def create_get_id_response(quask_num):
 	response = make_response(handle_request_get_id(quask_num))
-	response.headers['Content-Type'] = 'application/json'
 
 	return response

@@ -1,4 +1,4 @@
-from flask import Flask  # , request
+from flask import Flask
 from request_handling import create_post_response, create_get_response, create_get_id_response
 from create_db import create_db
 

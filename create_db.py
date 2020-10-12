@@ -1,4 +1,3 @@
-# БД зачит да?
 import sqlite3
 
 
