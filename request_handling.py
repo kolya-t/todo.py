@@ -56,13 +56,12 @@ def handle_request_patch_id(quask_num):
 		return 'The type of the content in your request is clearly and utterly wrong, it have to be Json', 400
 	elif type(data_from_patch) is not dict:
 		return 'The data in your request is absolutely wrong, it have to be a Json string', 400
-	elif str(data_from_patch['is_done']) == '':
-		return 'The data in your request is absolutely wrong, it must not  be empty', 400
 	elif 'is_done' not in data_from_patch:
 		return 'There is no proper field to use in your request, is_done is absolute necessity', 400
+	elif str(data_from_patch['is_done']) == '':
+		return 'The data in your request is absolutely wrong, it must not be empty', 400
 	elif int(bool(data_from_patch['is_done'])) == select_quask_by_id(quask_num)[3]:
-		return 'The task is already in state your trying to put it into,' \
-				' it is already {0}'.format(bool(data_from_patch['is_done'])), 204
+		return '', 204
 	elif int(bool(data_from_patch['is_done'])) != select_quask_by_id(quask_num)[3]:
 		table_update = update_is_done_quask(int(bool(data_from_patch['is_done'])), quask_num)
 
