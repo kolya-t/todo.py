@@ -1,5 +1,5 @@
 from flask import Flask
-from request_handling import create_post_response, create_get_response, create_get_id_response
+from request_handling import create_post_response, create_get_response, create_get_id_response, create_patch_id_response
 from create_db import create_db
 
 app = Flask(__name__)
@@ -24,16 +24,26 @@ def respond_to_get():
 
 @app.route('/tasks/<int:quask_num>', methods=['GET'])
 def respond_to_get_id(quask_num):
-	quask_num = quask_num
 	return create_get_id_response(quask_num)
+
+
+@app.route('/tasks/<int:quask_num>', methods=['PATCH'])
+def respond_to_patch_id(quask_num):
+	return create_patch_id_response(quask_num)
 
 
 if __name__ == '__main__':
 	app.run(debug=True)
 
 '''
-forUnix
+POSTforUnix
 curl -X POST 'http://localhost:5000/tasks' -H 'Content-Type: application/json' -d '{"description": "some value"}'
-forWin 
+POSTforWin 
 curl -X POST http://localhost:5000/tasks -H "Content-Type: application/json" -d "{\"description\":\"some value\"}"
+GET_IDforWin
+-X GET http://localhost:5000/tasks/62 -i
+GETforWin
+-X GET http://localhost:5000/tasks
+PATCHforWin
+-X PATCH http://localhost:5000/tasks/1 -i -H "Content-Type: application/json" -d "{\"is_done\":\"1\"}"
 '''

@@ -58,3 +58,18 @@ def select_quask_by_id(quask_num):
 	connection.close()
 
 	return quask_by_id
+
+# Не получилось :с
+'''
+def select_field_by_id(field_name, quask_num):
+	connection = sqlite3.connect('toDO.db')
+	cursor = connection.cursor()
+
+	# quask_data_list = [tuple('{0},{1}'.format(field_name, quask_num).split(','))]
+	# quask_data_list = tuple([field_name, quask_num])
+
+	cursor.execute('SELECT * FROM quasks WHERE id = (?)', quask_num)
+	field_by_id = cursor.fetchone()
+
+	connection.close()
+	return field_by_id'''
