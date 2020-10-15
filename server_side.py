@@ -4,7 +4,7 @@ from request_handling import create_post_response, create_get_response, create_g
 from create_db import create_db
 from authorization import requires_authorization
 
-logging.basicConfig(filename='complete.log', level=logging.DEBUG)
+# logging.basicConfig(filename='complete.log', level=logging.DEBUG)
 create_db()
 app = Flask(__name__)
 
@@ -59,6 +59,11 @@ PATCH for Win
 curl -X PATCH http://localhost:5000/tasks/1 -i -H "Content-Type: application/json" -d "{\"is_done\":\"1\"}"
 
 LOGIN for WIN
-curl -u admin:admin http://localhost:5000/ -X POST http://localhost:5000/tasks -H "Content-Type: application/json" -d "{\"description\":\"some value\"}"
+curl -u admin:admin http://localhost:5000/
+
+Env vars
+set FLASK_APP=server_side.py
+set TODO_USER=admin
+set TODO_PASSWORD=admin
 
 '''
