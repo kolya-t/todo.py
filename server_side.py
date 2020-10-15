@@ -1,12 +1,12 @@
 from flask import Flask
+import logging
 from request_handling import create_post_response, create_get_response, create_get_id_response, create_patch_id_response
 from create_db import create_db
 from authorization import requires_authorization
 
-
-app = Flask(__name__)
-
+logging.basicConfig(filename='complete.log', level=logging.DEBUG)
 create_db()
+app = Flask(__name__)
 
 
 @app.route('/')
@@ -43,16 +43,22 @@ if __name__ == '__main__':
 	app.run(debug=True)
 
 '''
-POSTforUnix
+POST for Unix
 curl -X POST 'http://localhost:5000/tasks' -H 'Content-Type: application/json' -d '{"description": "some value"}'
-POSTforWin 
+
+POST for Win
 curl -X POST http://localhost:5000/tasks -H "Content-Type: application/json" -d "{\"description\":\"some value\"}"
-GET_IDforWin
+
+GET_ID for Win
 curl -X GET http://localhost:5000/tasks/62 -i
-GETforWin
+
+GET for Win
 curl -X GET http://localhost:5000/tasks
-PATCHforWin
+
+PATCH for Win
 curl -X PATCH http://localhost:5000/tasks/1 -i -H "Content-Type: application/json" -d "{\"is_done\":\"1\"}"
-LOGINforWIN
-curl -u admin:admin http://localhost:5000/
+
+LOGIN for WIN
+curl -u admin:admin http://localhost:5000/ -X POST http://localhost:5000/tasks -H "Content-Type: application/json" -d "{\"description\":\"some value\"}"
+
 '''
