@@ -4,7 +4,7 @@ from os import environ
 
 
 def login_user(username, password):
-    api_username = environ.get('TODO_PASSWORD')
+    api_username = environ.get('TODO_USER')
     api_key = environ.get('TODO_PASSWORD')
     return username == api_username and password == api_key
 
