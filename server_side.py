@@ -4,7 +4,7 @@ from request_handling import create_post_response, create_get_response, create_g
 from create_db import create_db
 from authorization import requires_authorization
 
-# logging.basicConfig(filename='complete.log', level=logging.DEBUG)
+logging.basicConfig(filename='complete.log', level=logging.DEBUG)
 create_db()
 app = Flask(__name__)
 
