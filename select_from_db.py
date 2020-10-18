@@ -21,7 +21,6 @@ def select_last_quask():
 	last_quask = cursor.fetchone()
 	
 	connection.close()
-
 	return last_quask
 
 

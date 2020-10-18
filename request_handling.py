@@ -20,7 +20,7 @@ def handle_request_post():
 	elif str(data_from_post['description']) == '':
 		return 'The data in your request is absolutely wrong, it must not  be empty', 400
 	else:
-		insert_new_quask(date_created, data_from_post, 0)
+		insert_new_quask(date_created, data_from_post['description'], 0)
 
 		return dumps(OrderedDict(zip(get_column_names(), select_last_quask()))), 201, \
 			{
