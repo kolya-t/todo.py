@@ -13,7 +13,7 @@ def requires_authorization(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         authorization = request.authorization
-        if not (environ.get('TODO_PASSWORD') is None or environ.get('TODO_PASSWORD') is None):
+        if not (environ.get('TODO_USER') is None or environ.get('TODO_PASSWORD') is None):
             if not authorization:
                 return make_response('Authorization is required', 401,
                                      {'WWW-Authenticate': 'Basic realm="Login required"'})
