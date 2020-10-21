@@ -75,6 +75,7 @@ def create_post_response():
 
 def create_get_response():
 	response = make_response(handle_request_get())
+	response.headers.add("Access-Control-Allow-Origin", "*")
 	return response
 
 
