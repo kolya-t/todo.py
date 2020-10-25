@@ -60,12 +60,12 @@ def handle_request_patch_id(quask_num):
 		return 'There is no proper field to use in your request, is_done is absolute necessity', 400
 	elif str(data_from_patch['is_done']) == '':
 		return 'The data in your request is absolutely wrong, it must not be empty', 400
-	elif int(bool(data_from_patch['is_done'])) == select_quask_by_id(quask_num)[3]:
+	elif int(data_from_patch['is_done']) == select_quask_by_id(quask_num)[3]:
 		return '', 204
-	elif int(bool(data_from_patch['is_done'])) != select_quask_by_id(quask_num)[3]:
-		table_update = update_is_done_quask(int(bool(data_from_patch['is_done'])), quask_num)
-
-		return table_update, 200
+	elif int(data_from_patch['is_done']) != select_quask_by_id(quask_num)[3]:
+		update_is_done_quask(int(data_from_patch['is_done']), quask_num)
+		response = dumps(select_quask_by_id(quask_num)[3])
+		return response, 200
 
 
 def create_post_response():
