@@ -53,16 +53,12 @@ def handle_request_patch_id(quask_num):
 	if str(select_quask_by_id(quask_num)) == 'None':
 		return 'There appears to be no task with such ID', 404
 	elif request.content_type != CONTENT_TYPE_JSON:
-		print(1)
 		return 'The type of the content in your request is clearly and utterly wrong, it have to be Json', 400
 	elif type(data_from_patch) is not dict:
-		print(2)
 		return 'The data in your request is absolutely wrong, it have to be a Json string', 400
 	elif 'is_done' not in data_from_patch:
-		print(3)
 		return 'There is no proper field to use in your request, is_done is absolute necessity', 400
 	elif str(data_from_patch['is_done']) == '':
-		print(4)
 		return 'The data in your request is absolutely wrong, it must not be empty', 400
 	elif int(data_from_patch['is_done']) == select_quask_by_id(quask_num)[3]:
 		return '', 204

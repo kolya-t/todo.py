@@ -1,15 +1,16 @@
 from flask import Flask
-import logging
+# import logging
 from request_handling import create_post_response, create_get_response, create_get_id_response, create_patch_id_response
 from create_db import create_db
 from authorization import requires_authorization
 from flask_cors import CORS
 
 
-#logging.basicConfig(filename='complete.log', level=logging.DEBUG)
+# logging.basicConfig(filename='complete.log', level=logging.DEBUG)
 create_db()
 app = Flask(__name__)
 CORS(app)
+
 
 @app.route('/')
 @requires_authorization
